@@ -10,7 +10,7 @@ const router = Router();
 
 
 router.get('/videogames/:id', async (req, res) => {
-    const {id} = req.params;
+    const {id} = req.params; // ESTO ES LO QUE RECIBO POR PARAMETRO
     const  videogamesTotal = await getAllGames()// DENTRO DE TODOS ESTOS JUEGOS BUSCO EL QUE TENGA EL ID QUE ME PASARON POR PARAMETRO
     if (id){
       let videogameId = await videogamesTotal.filter(el => el.id == id)
@@ -29,6 +29,7 @@ router.get('/videogames', async (req, res)=>{ // get all games
         const foundGamesAPI = await getGamesByName(name) // get games from API
         const gamesByNameDB = await getDBinfo() // get games from DB
 
+        // FILTRAME EL ARRAY DE TODOS LOS JUEGOS CON EL ID QUE ME PASARON POR PARAMETRO
         let foundGamesDB = gamesByNameDB.filter(el => el.name.toLowerCase().includes(name.toLowerCase()))
         // filter games from DB by name
         let allResults = foundGamesAPI.concat(foundGamesDB)
