@@ -1,32 +1,36 @@
-import React,{useEffect} from "react";
+import React from 'react'
+import { useEffect } from 'react';
+import { useState } from 'react';
 import { useDispatch, useSelector } from "react-redux";
-import { getGames } from "../../redux/actions";
+import {getGames } from '../../redux/actions/index'
+import Card from '../Card/Card'
 
-export default function AllCards (props) {
+export default function AllCards() {
 
-    const dispatch = useDispatch();
-    const games = useSelector (state => state.games);
-    
-    
+    const dispatch = useDispatch()
+    const games= useSelector((state)=>state.videogames) // se trae el estado de redux
+   useEffect(()=>{ // lanza la accion de traer los juegos
+    dispatch(getGames())
+   },[dispatch])
 
-    useEffect(() => {
+  return (
 
-        dispatch(getGames());
+    <div>
+        <div>
+            <div>
+            {games?.map(game=> (
+                            <Card
+              key= {game.id} 
+              id= {game.id} 
+              name= {game.name} 
+              image= {game.image} 
+              genres= {game.genres}/>
+                    ))
+        }
 
-      
-    
+            </div>
+        </div>
+    </div>
 
-    }, [dispatch]);
-    console.log(games);
-    
-    return (<div>
-
-        {games&&games.map((game) => {console.log(game) })}
-
-
-
-
-
-</div>) 
-
+  )
 }
