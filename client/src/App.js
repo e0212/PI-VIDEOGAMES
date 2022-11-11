@@ -10,18 +10,19 @@ import Detail from './components/Detail/Detail';
 function App() {
   return (
 
-    <Router > 
+    <Route > 
       <Switch>
         <Route exact path= "/" component={LandingPage} />
+         
         <Route exact path= "/home" component={Home} />
         <Route exact path= "/detail/:id" component={Detail} />
-        
 
-      
+
       </Switch>
-    </Router>
+    </Route>
 
   );
 }
 
 export default App;
+

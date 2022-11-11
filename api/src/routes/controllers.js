@@ -58,6 +58,7 @@ const getAllGames = async () => {
 
 const getGamesByName = async (name) => {
     const apiURL = await axios.get(`https://api.rawg.io/api/games?search=${name}&key=${API_KEY}&page_size=15`)
+    // (`https://api.rawg.io/api/games?6&page_size=100&key${name}&key=${API_KEY}`)
     const apiDATA = await apiURL.data.results.map(el =>{
         return {
             id: el.id,
