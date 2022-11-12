@@ -22,7 +22,9 @@ const getAPIinfo = async () => {
                 image: el.background_image,
                 rating: el.rating,
                 genres: el.genres.map( el => el.name), 
-                platforms: el.platforms.map( el => el.platform.name)
+                platforms: el.platforms.map( el => el.platform.name),
+                //description: el.description_raw,
+                released: el.released,
                 
             }
         })

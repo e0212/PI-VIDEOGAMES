@@ -16,6 +16,7 @@ export default function Detail(props){
 console.log(detail)
  
   return (
+    
     <div className="detail">
       <div className="detail__container">
         <div className="detail__container__img">
@@ -26,13 +27,13 @@ console.log(detail)
           <h3>Genres:</h3>
           <ul>
             {detail.genres?.map((genres) => (
-              <li>{genres}</li>
+              <li key= {genres}>{genres}</li>
             ))}
           </ul>
           <h3>Platforms:</h3>
           <ul>
             {detail.platforms?.map((platforms) => (
-              <li key={platforms.id}>{platforms.name}</li>
+              <li key={platforms}>{platforms}</li>
             ))}
           </ul>
           <h3>Rating:</h3>

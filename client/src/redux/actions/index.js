@@ -11,7 +11,7 @@ export const GET_DETAIL = 'GET_DETAIL';
         try{
             const json = await axios.get("http://localhost:3001/videogames");
             return dispatch({
-                type: 'GET_GAMES',
+                type: GET_GAMES,
                 payload: json.data
             }) 
 
@@ -25,7 +25,7 @@ export function getGenres(payload) {
     try{
         const json = await axios.get("http://localhost:3001/genres");
         return dispatch({
-            type: 'GET_GENRES',
+            type: GET_GENRES,
             payload: json.data
         }) 
 
@@ -39,7 +39,7 @@ export function getPlatforms(payload) {
     try{
         const json = await axios.get("http://localhost:3001/platforms");
         return dispatch({
-            type: 'GET_PLATFORMS',
+            type: GET_PLATFORMS,
             payload: json.data
         }) 
 
@@ -55,7 +55,7 @@ export function getDetail(payload) { // EL PAYLOAD ES EL ID
         const json = await axios.get("http://localhost:3001/videogames/"+payload);
         
         return dispatch({
-            type: 'GET_DETAIL',
+            type: GET_DETAIL,
             payload: json.data
         }) 
 

@@ -1,26 +1,63 @@
-
+require("dotenv").config();
 const { Router } = require('express');
-// Importar todos los routers;
-// Ejemplo: const authRouter = require('./auth.js');
 const axios = require('axios');
 const {API_KEY} = process.env;
 const { Videogame, Genre, Platform} = require('../db');
 const { getDBinfo, getAllGames, getGamesByName, getAllGenres } = require('./controllers')
 const router = Router();
 
-
 router.get('/videogames/:id', async (req, res) => {
-    const {id} = req.params; // ESTO ES LO QUE RECIBO POR PARAMETRO
-    const  videogamesTotal = await getAllGames()// DENTRO DE TODOS ESTOS JUEGOS BUSCO EL QUE TENGA EL ID QUE ME PASARON POR PARAMETRO
-    if (id){
-      let videogameId = await videogamesTotal.filter(el => el.id == id)
-      videogameId.length ? 
-      res.status(200).json(videogameId) :
-      res.status(404).send('Game not found')
-    }
-  })
+    const { id } = req.params;
+    try {
+      if (id.includes("-")){ 
+      // solicitud a la base de datos
+        let dbInfo = await Videogame.findOne({
+          where: {
+              id: id
+          },
+          include: {
+              model: Genre,
+              attributes: ['name'],
+              through: {
+                  attributes: [],
+              }
+          }
+        });
   
+        dbInfo = JSON.parse(JSON.stringify(dbInfo));
+        dbInfo.genres = dbInfo.genres.map(g => g.name);
+              
+        res.json(dbInfo);
+      }else{
+      // solicitud a la API
+        let dataId = await axios(`https://api.rawg.io/api/games/${id}?key=${API_KEY}`);
+        let value = dataId.data
+        value= {
+          id: value.id,
+          name: value.name.toLowerCase(),
+          description: value.description_raw,
+          image: value.background_image,
+          released: value.released,
+          rating: value.rating,
+          platforms: value.platforms.map((i) => {
+            return i.platform.name;
+          }),
+          genres: value.genres.map((i) => {
+            return i.name;
+          }),
+        }
+        if (value){;
+          res.send(value);
+        } else {
+           res.send("game not found");
+        }
+      }
+    } catch (error) {
+      res.send(error);
+    }
+  });
 
+  
 router.get('/videogames', async (req, res)=>{ // get all games
 
     const {name} = req.query // get name from query
