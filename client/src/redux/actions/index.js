@@ -19,7 +19,7 @@ export const GET_DETAIL = 'GET_DETAIL';
             console.log(err)}}}
 
        
-// hacer un get de los generos
+
 export function getGenres(payload) {
     return async function(dispatch) {
     try{
@@ -33,7 +33,7 @@ export function getGenres(payload) {
         console.log(err)}}}
 
 
-// hacer un get a platforms
+
 export function getPlatforms(payload) {
     return async function(dispatch) {
     try{
@@ -46,11 +46,14 @@ export function getPlatforms(payload) {
     }catch(err){
         console.log(err)}}}
 
-// hacer un get a detail
+
 export function getDetail(payload) { // EL PAYLOAD ES EL ID
+    console.log(typeof payload)
     return async function(dispatch) {
+       
     try{
-        const json = await axios.get("http://localhost:3001/videogame/"+payload);
+        const json = await axios.get("http://localhost:3001/videogames/"+payload);
+        
         return dispatch({
             type: 'GET_DETAIL',
             payload: json.data

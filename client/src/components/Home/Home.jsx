@@ -6,6 +6,7 @@ import AllCards from "../AllCards/AllCards";
 
 
 
+
 export default function Home() {
 
   const dispatch = useDispatch();// esto reemplaza a mapDispatchToProps - son hooks

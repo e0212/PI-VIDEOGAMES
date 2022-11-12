@@ -2,7 +2,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-
 export default function Card({
   name,
   image,
@@ -10,10 +9,12 @@ export default function Card({
   id,
 }) {
   return (
-    <Link to={`/videogames/${id}`}>
+    
       <div>
         <div className="imagen">
+        
           <img
+          
             className="gamePhoto"
             src={image}
             alt={name}
@@ -23,7 +24,7 @@ export default function Card({
         </div>
 
         <div >
-          <h4 className="name"> {name}</h4>
+        <Link to={`/detail/${id}`}><h4 className="name">  {name}</h4> </Link>
             <div>
               <p>
                 <b> Genero: </b>
@@ -34,6 +35,6 @@ export default function Card({
             </div>
         </div>
       </div>
-    </Link>
+ 
   );
 }

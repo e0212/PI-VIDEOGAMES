@@ -12,6 +12,7 @@ const initialState = {
     videogames : [],
     genres: [],
     platforms: [],
+    detail: [],
 
 }
 export default function rootReducer(state = initialState, action){
