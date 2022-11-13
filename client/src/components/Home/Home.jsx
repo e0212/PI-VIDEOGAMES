@@ -2,6 +2,7 @@ import React from "react";
 import { useState, useEffect } from "react";
 import {useDispatch, useSelector} from 'react-redux';
 import AllCards from "../AllCards/AllCards";
+import SearchBar from "../SearchBar/SearchBar";
 
 
 
@@ -16,7 +17,9 @@ export default function Home() {
   return (
     <div>
       <h1>HOME</h1>
+      <SearchBar />
       <AllCards />
+      
     </div>
   );
 }

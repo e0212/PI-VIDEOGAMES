@@ -3,6 +3,7 @@ GET_GAMES,
 GET_GENRES,
 GET_PLATFORMS, 
 GET_DETAIL,
+GET_GAMES_NAME,
 } from "../actions";
 
  
@@ -38,6 +39,11 @@ export default function rootReducer(state = initialState, action){
                         ...state,
                         detail: action.payload
                     }
+                    case GET_GAMES_NAME:
+                        return{
+                            ...state,
+                            videogames: action.payload
+                        }
 
 
         

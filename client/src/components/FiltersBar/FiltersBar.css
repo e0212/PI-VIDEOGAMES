@@ -1,0 +1,29 @@
+.filtersBox{
+    
+    display: flex;
+    justify-content: center;
+   height:180px;
+   width: 1000px;
+   border: 2px solid rgb(247, 168, 168);
+   display: flex;
+   border-radius: 15px;
+   margin-top: 15px;
+   background-color: #9494945d;
+   padding-bottom: 50px;
+   
+}
+
+.filters{
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    
+
+}
+.filters select{
+    cursor: pointer;
+    width: 200px;
+    height: 40px;
+    border-radius: 10px;
+    
+}

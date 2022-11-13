@@ -3,6 +3,7 @@ export const GET_GAMES = 'GET_GAMES';
 export const GET_GENRES = 'GET_GENRES';
 export const GET_PLATFORMS = 'GET_PLATFORMS';
 export const GET_DETAIL = 'GET_DETAIL';
+export const GET_GAMES_NAME = 'GET_GAMES_NAME';
 
 // ACA DEJAR LA MENOR CANTIDAD DE LOGICA POSIBLE, SOLO LLAMAR A LAS FUNCIONES QUE HACEN LA LOGICA
 // ACA SUCEDE LA MAGIA, TODA LA CONEXION DEL BACKEND CON EL FRONTEND. linea 7,9 y 10
@@ -60,7 +61,33 @@ export function getDetail(payload) { // EL PAYLOAD ES EL ID
         }) 
 
     }catch(err){
-        console.log(err)}}}       
+        console.log(err)}}}  
+     
+        
+export function getNameGame(name){ 
+    //console.log(typeof name)
+    return async function(dispatch) {
+
+    try{
+        const json = await axios.get("http://localhost:3001/videogames?name="+name);
+        
+        
+        return dispatch({
+            type: GET_GAMES_NAME,
+            payload: json.data
+        })
+
+    }
+    catch(err){
+        console.log(err)}
+        return dispatch({
+            type: GET_GAMES_NAME,
+            payload: [{msg: "Did not found any games"}]
+
+    })}}
+
+
+
 
     
 

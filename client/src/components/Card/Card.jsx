@@ -38,3 +38,4 @@ export default function Card({
  
   );
 }
+// useSelector es un hook que nos permite acceder al estado de redux

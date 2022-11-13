@@ -24,10 +24,9 @@ export default function AllCards() {
               id= {game.id} 
               name= {game.name} 
               image= {game.image} 
-              genres= {game.genres}/>
-                    ))
-        }
-
+              genres= {game.genres.map(genre=>genre.name + ', ')}
+              
+              />))}
             </div>
         </div>
     </div>
