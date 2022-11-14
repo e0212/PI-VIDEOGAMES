@@ -1,68 +1,107 @@
 // Crear function Botones/Opciones para filtrar por género y por videojuego existente o agregado por nosotros
 
-// import React from "react";
-// import { useState } from "react";
-// import { useDispatch } from "react-redux";
-// import { getGenre } from "../../redux/actions";
-//
-// export default function FiltersBar() {
+import React, {useEffect} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
-//   const dispatch = useDispatch()
-//   const [genre, setGenre] = useState('')
-//   const [order, setOrder] = useState('')
-//   const [created, setCreated] = useState('')
-//
-//   function handleInputChange (event){
-//     event.preventDefault();
-//     setGenre(event.target.value);
-//   }
-//
-//   function handleSubmit (event){
-//     event.preventDefault();
-//     dispatch(getGenre(genre));
-//     console.log(genre)
-//   }
-//
-//   function handleInputChangeOrder (event){
-//     event.preventDefault();
-//     setOrder(event.target.value);
-//   }
-//
-//   function handleSubmitOrder (event){
-//     event.preventDefault();
-//     dispatch(getGenre(order));
-//     console.log(order)
-//   }
-//
-//   function handleInputChangeCreated (event){
-//     event.preventDefault();
-//     setCreated(event.target.value);
-//   }
-//
-//   function handleSubmitCreated (event){
-//     event.preventDefault();
-//     dispatch(getGenre(created));
-//     console.log(created)
-//   }
-//
-//   return (
-//     <div>
-//       <input type="text" placeholder='Search...'
-//       onChange={(targetValue) => handleInputChange(targetValue)}
-//       />
-//       <button type="button" onClick={targetValue => handleSubmit(targetValue)}>Search</button>
-//       <input type="text" placeholder='Order...'
-//       onChange={(targetValue) => handleInputChangeOrder(targetValue)}
-//       />
-//       <button type="button" onClick={targetValue => handleSubmitOrder(targetValue)}>Order</button>
-//       <input type="text" placeholder='Created...'
-//       onChange={(targetValue) => handleInputChangeCreated(targetValue)}
-//       />
-//       <button type="button" onClick={targetValue => handleSubmitCreated(targetValue)}>Created</button>
-//     </div>
-//   )
-//
-// }
+// import { FILTER_GAMES_BY_GENRE } from '../../redux/actions';
+import { filterGamesByGenre, getGenres } from '../../redux/actions';
+import {  sortAlphabetically  } from '../../redux/actions';
+import { sortByRating} from '../../redux/actions';
+
+
+export default function FiltersBar() {
+
+    //dispatch a handleFilterByGenre
+    const dispatch = useDispatch();
+    useEffect(() => {dispatch(getGenres())}, [dispatch]);//desde aca
+    const genres = useSelector((state) => state.genres);
+   
+    const games = useSelector((state) => state.games);
+    
+    function handleFilterByGenre(e) {
+        dispatch(filterGamesByGenre(e.target.value));
+    }
+
+
+    
+    // dispatch a filterCreatedOrExist
+    // useEffect(() => {dispatch(filterCreatedOrExist())}, [dispatch]);//hasta aca
+    // const filterCreatedOrExist = useSelector((state) => state.filterCreatedOrExist);
+    // //console.log(filterCreatedOrExist);
+    // //const games1 = useSelector((state) => state.games);
+    
+    function handleFilterByCreatedOrExist(e) {
+        
+    }
+    
+    
+    
+    function handleSortAlphabetically(e) {
+        e.preventDefault();
+        dispatch(sortAlphabetically(e.target.value))
+    }
+    
+    function handleSortByRating(e) {
+        e.preventDefault();
+        dispatch(sortByRating(e.target.value))
+  
+    }
+    
+    return (
+        <div className='filtersBar'>
+        <div className='filter'>
+            <label htmlFor='genre'>Filter by genre:</label>
+            <select name='genre' onChange={handleFilterByGenre}>
+            <option value='All'>All</option>
+            {genres.map((genre) => (
+                <option key={genre.id} value={genre.name}>
+                {genre.name}
+                </option>
+            ))}
+            </select>
+        </div>
+        <div className='filter'>
+            <label htmlFor='createdOrExist'>Filter by created or exist:</label>
+            <select name='createdOrExist' onChange={handleFilterByCreatedOrExist}>
+            <option value='All'>All</option>
+            <option value='Created'>Created</option>
+            <option value='Exist'>Exist</option>
+            </select>
+        </div>
+        <div className='filter'>
+            <label htmlFor='sortAlphabetically'>Sort alphabetically:</label>
+            <select name='sortAlphabetically' onChange={(e)=>handleSortAlphabetically(e)}>
+            <option value='All'>All</option>
+            <option value='A - Z'>A-Z</option>
+            <option value='Z - A'>Z-A</option>
+            </select>
+        </div>
+
+
+        <div className='filter'>
+            <label htmlFor='sortRating'>Sort rating:</label>
+            <select name='sortRating' onChange={handleSortByRating}>
+            <option value='All'>All</option>
+            <option value='Rating'>Rating</option>
+            </select>
+        </div>
+        </div>
+    );
+}
+    
+
+
+   
+
+
+
+    
+
+   
+
+
+
+
 
 
 
