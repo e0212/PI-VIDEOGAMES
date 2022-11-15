@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { filterGamesByGenre, getGenres } from '../../redux/actions';
 import {  sortAlphabetically  } from '../../redux/actions';
 import { sortByRating} from '../../redux/actions';
+import {filterCreatedOrExist} from '../../redux/actions';
 
 
 export default function FiltersBar() {
@@ -15,14 +16,14 @@ export default function FiltersBar() {
     const dispatch = useDispatch();
     useEffect(() => {dispatch(getGenres())}, [dispatch]);//desde aca
     const genres = useSelector((state) => state.genres);
-   
+    //console.log(genres);
     const games = useSelector((state) => state.games);
     
     function handleFilterByGenre(e) {
         dispatch(filterGamesByGenre(e.target.value));
     }
 
-
+    
     
     // dispatch a filterCreatedOrExist
     // useEffect(() => {dispatch(filterCreatedOrExist())}, [dispatch]);//hasta aca
@@ -31,6 +32,7 @@ export default function FiltersBar() {
     // //const games1 = useSelector((state) => state.games);
     
     function handleFilterByCreatedOrExist(e) {
+        dispatch(filterCreatedOrExist(e.target.value)); // invoco a la action
         
     }
     

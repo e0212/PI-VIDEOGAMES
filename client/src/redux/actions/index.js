@@ -101,8 +101,8 @@ export function getNameGame(name){
         }
     }
 
-    export function filterCreatedOrExist(payload) {
-
+    export function filterCreatedOrExist(payload) { // viene del componente Filter y lo manda al reducer
+        
         return {
             type: FILTER_CREATED_OR_EXIST,
             payload
