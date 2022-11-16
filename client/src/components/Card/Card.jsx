@@ -1,41 +1,24 @@
-
 import React from "react";
 import { Link } from "react-router-dom";
+import "./Card.css";
 
-export default function Card({
-  name,
-  image,
-  genres,
-  id,
-}) {
+export default function Card({ name, image, genres, id }) {
+
   return (
-    
-      <div>
-        <div className="imagen">
-        
-          <img
-          
-            className="gamePhoto"
-            src={image}
-            alt={name}
-            width="400px"
-            height=""
-          />
+    <div className="conteinerCard">
+        <img className="gamePhoto" src={image} alt={name} />
+      {
+        <div className="capaInfo">
+          <Link to={`/detail/${id}`}>
+            <h4 className="name"> {name}</h4>{" "}
+          </Link>
+            <b> Genero: </b>
+            {genres.map((genre) => {
+              return <p>{genre}</p>;
+            })}
         </div>
-
-        <div >
-        <Link to={`/detail/${id}`}><h4 className="name">  {name}</h4> </Link>
-            <div>
-              <p>
-                <b> Genero: </b>
-                {genres}
-              </p>
-
-
-            </div>
-        </div>
-      </div>
- 
+      }
+    </div>
   );
 }
 // useSelector es un hook que nos permite acceder al estado de redux

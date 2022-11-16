@@ -4,8 +4,9 @@ import React from "react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { getNameGame } from "../../redux/actions";
+import './SearchBar.css';
 
-export default function SearchBar(){
+export default function SearchBar({setPage}){
   const dispatch = useDispatch()
   const [name, setName] = useState('')
   
@@ -16,21 +17,26 @@ export default function SearchBar(){
   }
 
   function handleSubmit (event){
+    setPage(1)
     event.preventDefault();
     dispatch(getNameGame(name));
-    console.log(name)
-    
   }
   
   return (
-    <div>
-      <input type="text" placeholder='Search...' 
-      onChange={(targetValue) => handleInputChange(targetValue)}
-      
+    <div className="searchInput">
+      <input
+        type="text"
+        placeholder="Search..."
+        onChange={(targetValue) => handleInputChange(targetValue)}
       />
-      <button type="button" onClick={targetValue => handleSubmit(targetValue)}>SEARCH</button>
+      <button
+        type="button"
+        onClick={(targetValue) => handleSubmit(targetValue)}
+      >
+        SEARCH
+      </button>
     </div>
-  )
+  );
 
 }
      

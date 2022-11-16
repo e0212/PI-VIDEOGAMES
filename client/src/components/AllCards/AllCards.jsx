@@ -1,36 +1,28 @@
-import React from 'react'
-import { useEffect } from 'react';
-import { useState } from 'react';
-import { useDispatch, useSelector } from "react-redux";
-import {getGames } from '../../redux/actions/index'
-import Card from '../Card/Card'
+import React from 'react';
+import Card from '../Card/Card';
+import './AllCards.css'
 
-export default function AllCards() {
+export default function AllCards( {games, gamesPerPage, totalGames, page}) {
 
-    const dispatch = useDispatch()
-    const games= useSelector((state)=>state.videogames) // se trae el estado de redux
-   useEffect(()=>{ // lanza la accion de traer los juegos
-    dispatch(getGames())
-   },[dispatch])
-
+  console.log(games.genres)
   return (
-
     <div>
-        <div>
-            <div>
-            {games?.map(game=> (
-                            <Card
-              key= {game.id} 
-              id= {game.id} 
-              name= {game.name} 
-              image= {game.image} 
-              genres= {game.genres.map(genre=>genre.name + ', ')}
-              
-              />))}
-            </div>
+        <div className="conteinerAllCards">
+          {games?.slice(
+                (page - 1) * gamesPerPage,
+                (page - 1) * gamesPerPage + gamesPerPage
+              ).map((game) => (
+            <Card
+              key={game.id}
+              id={game.id}
+              name={game.name}
+              image={game.image}
+              genres={game.genres}
+            />
+          ))}
         </div>
-    </div>
 
-  )
+    </div>
+  );
 }
 

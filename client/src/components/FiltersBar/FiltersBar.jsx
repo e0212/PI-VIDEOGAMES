@@ -8,8 +8,9 @@ import { sortAlphabetically } from "../../redux/actions";
 import { sortByRating } from "../../redux/actions";
 import { filterCreatedOrExist } from "../../redux/actions";
 import * as actions from "../../redux/actions";
+import './FiltersBar.css'
 
-export default function FiltersBar() {
+export default function FiltersBar({setPage}) {
   //dispatch a handleFilterByGenre
   const dispatch = useDispatch();
   useEffect(() => {
@@ -19,16 +20,19 @@ export default function FiltersBar() {
   const games = useSelector((state) => state.games);
 
   function handleFilterByGenre(e) {
+    setPage(1);
     dispatch(filterGamesByGenre(e.target.value));
   }
 
   //dispatch a handleFilterByCreatedOrExist
   function handleFilterByCreatedOrExist(e) {
+    setPage(1);
     dispatch(filterCreatedOrExist(e.target.value)); // invoco a la action
   }
 
   //dispatch a handleSortAlphabetically
   function handleSortAlphabetically(e) {
+    setPage(1);
     e.preventDefault();
     dispatch(sortAlphabetically(e.target.value));
     // setCurrentPage(1);
@@ -36,6 +40,7 @@ export default function FiltersBar() {
   }
 
   function handleSortByRating(e) {
+    setPage(1);
     e.preventDefault();
     dispatch(sortByRating(e.target.value));
   }
