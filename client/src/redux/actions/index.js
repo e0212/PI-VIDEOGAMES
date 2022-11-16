@@ -114,3 +114,16 @@ export function sortByRating(payload) {
     payload,
   };
 }
+export function createGame(payload) {
+  try {
+    axios.post("http://localhost:3001/videogames", payload);
+  }
+  catch (err) {
+    console.log(err);
+  }
+}
+
+
+  
+
+
