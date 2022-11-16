@@ -2,20 +2,19 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./Card.css";
 
-export default function Card({ name, image, genres, id }) {
-
+export default function Card({ id, name, image, genres}) {
   return (
     <div className="conteinerCard">
         <img className="gamePhoto" src={image} alt={name} />
       {
         <div className="capaInfo">
           <Link to={`/detail/${id}`}>
-            <h4 className="name"> {name}</h4>{" "}
+            <h4 className="name"> {name}</h4>
           </Link>
             <b> Genero: </b>
-            {genres.map((genre) => {
+            {genres.length >0 ? genres.map((genre) => {
               return <p>{genre}</p>;
-            })}
+            }): ""}
         </div>
       }
     </div>

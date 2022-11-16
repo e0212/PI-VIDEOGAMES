@@ -23,11 +23,11 @@ export default function Home() {
     <div className="conteinerHome">
       <div className="header">
         <h1>HOME</h1>
-        {/*<Link to="./components/Form/Form"></Link>*/}
         <SearchBar setPage={setPage}/>
+
         <FiltersBar setPage={setPage}/>
       </div>
-      <AllCards games={games} gamesPerPage={gamesPerPage} totalGames={totalGames} page={page} setPage={page}/>
+      <AllCards  gamesPerPage={gamesPerPage} totalGames={totalGames} page={page} setPage={page}/>
       <Pagination
         totalGames={totalGames}
         gamesPerPage={gamesPerPage}

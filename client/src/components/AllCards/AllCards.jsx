@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import Card from '../Card/Card';
 import './AllCards.css'
-//import{useDispatch, useSelector} from 'react-redux'
+import { getGames } from "../../redux/actions/index";
 
-export default function AllCards( {games, gamesPerPage, totalGames, page}) {
+export default function AllCards( { gamesPerPage, page}) {
 
-const indexOfLastGame = page * gamesPerPage;
-const indexOfFirstGame = indexOfLastGame - gamesPerPage;
-const currentGames = games.slice(indexOfFirstGame, indexOfLastGame);
+  const games = useSelector((state) => state.videogames);
+  const dispatch = useDispatch(); // esto reemplaza a mapDispatchToProps - son hooks
+  useEffect(() => {
+    // lanza la accion de traer los juegos
+    dispatch(getGames());
+  }, [dispatch]);
 
-
-
-  console.log(games.genres)
+  console.log(games)
   return (
     <div>
         <div className="conteinerAllCards">

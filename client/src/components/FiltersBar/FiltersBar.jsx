@@ -9,6 +9,7 @@ import { sortByRating } from "../../redux/actions";
 import { filterCreatedOrExist } from "../../redux/actions";
 import * as actions from "../../redux/actions";
 import './FiltersBar.css'
+import { Link } from "react-router-dom";
 
 export default function FiltersBar({setPage}) {
   //dispatch a handleFilterByGenre
@@ -84,6 +85,11 @@ export default function FiltersBar({setPage}) {
           <option value="All">All</option>
           <option value="Rating Mayor">Rating Mayor</option>
         </select>
+      </div>
+      <div className="Link">
+        <Link to="/Form">
+          <button>Create</button>
+        </Link>
       </div>
     </div>
   );

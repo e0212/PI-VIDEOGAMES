@@ -21,17 +21,17 @@ export default function SearchBar({setPage}){
     event.preventDefault();
     dispatch(getNameGame(name));
   }
-  
+  console.log(name)
   return (
     <div className="searchInput">
       <input
         type="text"
         placeholder="Search..."
-        onChange={(targetValue) => handleInputChange(targetValue)}
+        onChange={handleInputChange}
       />
       <button
         type="button"
-        onClick={(targetValue) => handleSubmit(targetValue)}
+        onClick={handleSubmit}
       >
         SEARCH
       </button>
