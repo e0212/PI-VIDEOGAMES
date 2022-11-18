@@ -117,13 +117,7 @@ export function sortByRating(payload) {
 export function createGame(payload) {
   try {
     axios.post("http://localhost:3001/videogames", payload);
-  }
-  catch (err) {
+  } catch (err) {
     console.log(err);
   }
 }
-
-
-  
-
-

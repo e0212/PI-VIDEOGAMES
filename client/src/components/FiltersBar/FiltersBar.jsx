@@ -8,10 +8,10 @@ import { sortAlphabetically } from "../../redux/actions";
 import { sortByRating } from "../../redux/actions";
 import { filterCreatedOrExist } from "../../redux/actions";
 import * as actions from "../../redux/actions";
-import './FiltersBar.css'
+import "./FiltersBar.css";
 import { Link } from "react-router-dom";
 
-export default function FiltersBar({setPage}) {
+export default function FiltersBar({ setPage }) {
   //dispatch a handleFilterByGenre
   const dispatch = useDispatch();
   useEffect(() => {
@@ -39,7 +39,7 @@ export default function FiltersBar({setPage}) {
     // setCurrentPage(1);
     // setOrden(e.target.value);
   }
-
+  // dispatch a handleSortByRating
   function handleSortByRating(e) {
     setPage(1);
     e.preventDefault();
@@ -84,6 +84,7 @@ export default function FiltersBar({setPage}) {
         <select name="sortRating" onChange={handleSortByRating}>
           <option value="All">All</option>
           <option value="Rating Mayor">Rating Mayor</option>
+          <option value="Rating Menor">Rating Menor</option>
         </select>
       </div>
       <div className="Link">

@@ -1,8 +1,64 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  createGame} from "../../redux/actions/index";
+import { createGame } from "../../redux/actions/index";
 import { getGenres } from "../../redux/actions/index";
 import { Link } from "react-router-dom";
+
+// //validaciones
+
+function validate(input) {
+  let errors = {};
+  if (!input.name) {
+    errors.name = "Name is required";
+  } else if (!/^[A-Za-z]+/.test(input.name)) {
+    errors.name = "Name is invalid";
+  }
+  if (!input.description) {
+    errors.description = "Description is required";
+  } else if (!/^[A-Za-z]+/.test(input.description)) {
+    errors.description = "Description is invalid";
+  }
+  if (!input.released) {
+    errors.released = "Released is required";
+  } else if (!/^[A-Za-z]+/.test(input.released)) {
+    errors.released = "Released is invalid";
+  }
+  if (!input.rating) {
+    errors.rating = "Rating is required";
+  } else if (!/^[A-Za-z]+/.test(input.rating)) {
+    errors.rating = "Rating is invalid";
+  }
+  if (!input.platforms) {
+    errors.platforms = "Platforms is required";
+  } else if (!/^[A-Za-z]+/.test(input.platforms)) {
+    errors.platforms = "Platforms is invalid";
+  }
+  return errors;
+}
+
+// function validate(input) {// (falta averiguar donde esta esta funcion)
+//     let errors = {};
+//     let dif = Number(input.difficulty); // 1, 2, 3, 4, 5
+//     let dur = Number(input.duration);// input duration is a string that we convert to a number to compare it with the difficulty number
+//     if (!input.name) { // if the input name is empty
+//         errors.name = "Name is required";
+//     } else if (!/^[a-zA-Z]+$/.test(input.name)) { // /^[a-zA-Z]+$/.test(input.name) is a regular expression that checks if the name is only letters
+//         errors.name = "Name must contain only letters";
+//     }
+//     if (!input.difficulty) {
+//         errors.difficulty = "Difficulty is required";
+//     } else if (dif < 1 || dif > 5) {
+//         errors.difficulty = "Difficulty must be a number between 1 and 5";
+//     }
+//     if (!input.duration) {
+//         errors.duration = "Duration is required";
+//     } else if (dur <= 0 || dur > 24) {
+//     }
+//     if (!input.season || input.season === "none") { // if the input season is empty or none (none is the default value)
+//         errors.season = "Season is required";
+//     }
+//     return errors;
+// }
 
 export default function Formulario() {
   console.log("hola");
@@ -53,58 +109,59 @@ export default function Formulario() {
   };
 
   const input = (e) => {
-      if (e.target.id === "rating") {
-        setState({
-          ...state,
-          [e.target.id]: Number(e.target.value)
-            ? Number(e.target.value)
-            : e.target.value,
-        });
-      } else {
-        setState({
-          ...state,
-          [e.target.id]: e.target.value,
-        });
-      }
+    if (e.target.id === "rating") {
+      setState({
+        ...state,
+        [e.target.id]: Number(e.target.value)
+          ? Number(e.target.value)
+          : e.target.value,
+      });
+    } else {
+      setState({
+        ...state,
+        [e.target.id]: e.target.value,
+      });
+    }
   };
   const inputSelect = (e) => {
-      if (e.target.id === "genres") {
-        setState({
-          ...state,
-          genres: state.genres.concat(e.target.value),
-        });
-        controller("genres");
-      } else {
-        setState({
-          ...state,
-          platforms: state.platforms.concat(e.target.value),
-        });
-        controller("platform");
-      }
+    if (e.target.id === "genres") {
+      setState({
+        ...state,
+        genres: state.genres.concat(e.target.value),
+      });
+      controller("genres");
+    } else {
+      setState({
+        ...state,
+        platforms: state.platforms.concat(e.target.value),
+      });
+      controller("platform");
+    }
   };
 
   const onChangeDelete = (e) => {
-      const filter =
-        e.target.id === "platforms"
-          ? state.platforms.filter((value) => value !== e.target.value)
-          : state.genres.filter((value) => value !== e.target.value);
-      if (filter.length === 0) {
-        setState({
-          ...state,
-          [e.target.id]: [],
-        });
-      } else {
-        setState({
-          ...state,
-          [e.target.id]: filter,
-        });
-      }
+    const filter =
+      e.target.id === "platforms"
+        ? state.platforms.filter((value) => value !== e.target.value)
+        : state.genres.filter((value) => value !== e.target.value);
+    if (filter.length === 0) {
+      setState({
+        ...state,
+        [e.target.id]: [],
+      });
+    } else {
+      setState({
+        ...state,
+        [e.target.id]: filter,
+      });
+    }
   };
   const handlerOnSubmit = (event) => {
-      event.preventDefault();
-      dispatch( createGame(state));
+    event.preventDefault();
+    dispatch(createGame(state));
   };
 
+  // aca se pinta el formulario
   return (
     <div className="conteinterCreate">
       <Link to="/videogames" className="backCreate">

@@ -67,8 +67,14 @@ const getGamesByName = async (name) => {
             name: el.name,
             image: el.background_image,
             rating: el.rating,
-            genres: el.genres,
-            platforms: el.platforms 
+            // genres: el.genres,
+            // platforms: el.platforms 
+            platforms: el.platforms.map((i) => {
+                return i.platform.name;
+              }),
+              genres: el.genres.map((i) => {
+                return i.name;
+              }),
             
         }
     })

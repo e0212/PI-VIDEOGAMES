@@ -12,9 +12,9 @@ export default function Card({ id, name, image, genres}) {
             <h4 className="name"> {name}</h4>
           </Link>
             <b> Genero: </b>
-            {genres.length >0 ? genres.map((genre) => {
+            {/* {genres.length !== 0 ? genres.map((genre) => {
               return <p>{genre}</p>;
-            }): ""}
+            }): <p>no tiene genero</p>} */}
         </div>
       }
     </div>

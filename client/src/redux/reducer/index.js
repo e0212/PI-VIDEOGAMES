@@ -113,23 +113,20 @@ export default function rootReducer(state = initialState, action) {
       };
 
     case "SORT_BY_RATING":
-      if (action.payload === "All") {
+      
+      if (action.payload === "Rating Mayor") {
         state.videogames.sort((a, b) => {
-          return a.rating - b.rating;
-        });
-
-        state.videogames.sort((a, b) => {
-          return a.rating - b.rating;
+          if (a.rating > b.rating) return -1;
+          if (b.rating > a.rating) return 1;
+          return 0;
         });
       }
 
-      if (action.payload === "Rating Mayor") {
+      if (action.payload === "Rating Menor") {
         state.videogames.sort((a, b) => {
-          return b.rating - a.rating;
-        });
-
-        state.videogames.sort((a, b) => {
-          return b.rating - a.rating;
+          if (a.rating > b.rating) return 1;
+          if (b.rating > a.rating) return -1;
+          return 0;
         });
       }
 
@@ -137,8 +134,6 @@ export default function rootReducer(state = initialState, action) {
         ...state,
         videogames: [...state.videogames],
       };
-
-    default:
-      return state;
   }
+  return state;
 }
