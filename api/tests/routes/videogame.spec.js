@@ -1,96 +1,107 @@
-/* eslint-disable import/no-extraneous-dependencies */ 
-/* eslint-disable no-undef */
+const { expect } = require("chai");
+const session = require("supertest-session");
+const server = require("../../src/app.js");
+const { conn } = require("../../src/db.js");
+const { Videogame, Genre } = conn.models;
+const agent = session(server);
 
-import { expect } from 'chai';
-import session from 'supertest-session';
-import app from '../../src/app.js';
-import { Videogame, conn } from '../../src/db.js';
+describe("Test Routes", () => {
+  describe("GET /videogames", () => {
+    it("responds with 200", () => agent.get("/videogames").expect(200));
+    it("responds with and object with videogames", () => {
+      agent.get("/videogames").then((res) => {
+        expect(res.body).to.be.an("array");
+      });
+    });
+  });
+  describe("GET /genres", () => {
+    it("responds with 200", () => agent.get("/genres").expect(200));
+    it("responds with 200", () => agent.get("/genres").expect(200));
+    it("responds with an array", () => {
+      agent.get("/genres").then((res) => {
+        agent.expect(res.body).to.be.an("array");
+        agent.end = res.body.length;
 
-const agent = session(app);
-const videogame = {
-  name: 'Super Mario Bros',
-};
-
-describe('Videogame routes', () => {
-  before(() => conn.authenticate()
-  .catch((err) => {
-    console.error('Unable to connect to the database:', err);
-  }));
-  beforeEach(() => Videogame.sync({ force: true })
-    .then(() => Videogame.create(videogame)));
-  describe('GET /videogames', () => {
-    it('should get 200', () =>
-      agent.get('/videogames').expect(200)
-    );
+        for (let i = 0; i < agent.end; i++) {
+          agent.expect(res.body[i]).to.have.property("id");
+          agent.expect(res.body[i]).to.have.property("name");
+        }
+        agent.end();
+      });
+    });
+    it("responds with an array of genres", () => {
+      agent.get("/genres").then((res) => {
+        expect(res.body).to.be.an("array").that.is.not.empty;
+      });
+    });
   });
 });
 
 
-// //import { videogames, genres, conn } from "../db";
-// const { shouldgetgamegenre, shouldgetgameid, shouldgetgamename, shouldget404, shouldgetgamecreated } = require(" ../routes/videogame.spec.js ");
 
-// describe("GET /genres", () => {
-//   it("shouldgetgamegenre", (done) => {  
+// const supertest = require("supertest");
+// var request = require('supertest');
+// const app = require('../../src/app.js');
+
+// describe("GET /genres", function() {
+//   it("it should has status code 200", function(done) {
 //     supertest(app)
 //       .get("/genres")
 //       .expect(200)
-//       .end((err, res) => {
-//         if (err) return done(err);
+//       .end(function(err, res){
+//         if (err) done(err);
 //         done();
 //       });
 //   });
 // });
 
-// describe("GET /videogames/:ID", function () {
-//   it("shouldgetgameid", function (done) {
+// describe("GET /videogame/:ID", function() {
+//   it("it should has status code 200", function(done) {
 //     supertest(app)
-//       .get("/videogames/1")
+//       .get("/videogame/4328")
 //       .expect(200)
-//       .end(function (err, res) {
-//         if (err) return done(err);
+//       .end(function(err, res){
+//         if (err) done(err);
 //         done();
 //       });
 //   });
 // });
 
-// describe("GET /videogames?name=", function () {
-//   it("shouldgetgamename", function (done) {
+// describe("GET /videogames?name=", function() {
+//   it("it should has status code 200", function(done) {
 //     supertest(app)
-//       .get("/videogames?name=Super%20Mario%20Bros")
+//       .get("/videogames?name=cars")
 //       .expect(200)
-//       .end(function (err, res) {
-//         if (err) return done(err);
+//       .end(function(err, res){
+//         if (err) done(err);
 //         done();
 //       });
 //   });
 // });
 
-// describe("GET /wrong page", function () {
-//   it("shouldget404", function (done) {
+// describe("GET /wrong page", function() {
+//   it("it should has status code 404", function(done) {
 //     supertest(app)
 //       .get("/genr")
 //       .expect(404)
-//       .end(function (err, res) {
-//         if (err) return done(err);
+//       .end(function(err, res){
+//         if (err) done(err);
 //         done();
 //       });
 //   });
 // });
 
-// describe("POST /videogames", function () {
-//   it("shouldgetgamecreated", function (done) {
+// describe("POST /videogame", function() {
+//   it('should respond with status 200', function(done) {
 //     request(app)
-//       .post("/videogames")
-//       .send({
-//         name: "EMI",
-//       })
+//       .post('/videogame')
+//       .send ({ name: 'emi', })
 //       .expect(200)
-//       .expect("Content-Type", /json/)
-//       .end(function (err, res) {
-//         if (err) return done(err);
+//       .expect('Content-Type', /json/)
+//       .end(function(err, res) {
+//         if (err) done(err);
+
 //       });
-//     done();
+//       done();
 //   });
 // });
-
-

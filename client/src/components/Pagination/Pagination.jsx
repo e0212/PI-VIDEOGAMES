@@ -16,7 +16,8 @@ export const Pagination = ({ totalGames, gamesPerPage, page, setPage }) => {
 
   const pageNumbers = [];
 
-  for (let i = 1; i <= Math.ceil(totalGames / gamesPerPage); i++) { // math ceil redondea para arriba
+  for (let i = 1; i <= Math.ceil(totalGames / gamesPerPage); i++) {
+    // math ceil redondea para arriba
     pageNumbers.push(i);
   }
   const Previus = () => {

@@ -1,5 +1,5 @@
-import { Videogame, conn } from '../../src/db.js';
-import { expect } from 'chai';
+const { Videogame, conn } = require("../../src/db.js");
+const { expect } = require("chai");
 
 describe("Videogame model", () => {
   before(() =>
@@ -11,48 +11,38 @@ describe("Videogame model", () => {
     beforeEach(() => Videogame.sync({ force: true }));
     describe("name", () => {
       it("should throw an error if name is null", (done) => {
-        videogames
-          .create({})
+        Videogame.create({})
           .then(() => done(new Error("It requires a valid name")))
           .catch(() => done());
       });
       it("should work when its a valid name", () => {
-        videogames.create({ name: "EMI" });
-      });
-      it("should return name not found", (done) => {
-        videogames
-          .findAll()
-          .then((r) => expect(r[1].name).to.be.false("NameNotFound"))
-          .catch(() => done());
+        Videogame.create({ name: "Mario" });
       });
     });
   });
 });
 
-describe("Genre model", () => {
-  before(() =>
-    conn.authenticate().catch((err) => {
-      console.error("Unable to connect to the database:", err);
-    })
-  );
-  describe("Validators", () => {
-    beforeEach(() => genres.sync({ force: true }));
-    describe("name", () => {
-      it("should throw an error if name is null", (done) => {
-        genres
-          .create({})
-          .then(() => done(new Error("It requires a valid name")))
-          .catch(() => done());
-      });
-      it("should work when its a valid name", () => {
-        genres.create({ name: "EMI" });
-      });
-      it("should return name not found", (done) => {
-        genres
-          .findAll()
-          .then((r) => expect(r[1].name).to.be.false("NameNotFound"))
-          .catch(() => done());
+describe('Genre model', () => {
+    before(() => conn.authenticate()
+      .catch((err) => {
+        console.error('Unable to connect to the database:', err);
+      }));
+    describe('Validators', () => {
+      beforeEach(() => Genre.sync({ force: true }));
+      describe('name', () => {
+        it('should throw an error if name is null', (done) => {
+          Genre.create({})
+            .then(() => done(new Error('It requires a valid name')))
+            .catch(() => done());
+        });
+        it('should work when its a valid name', () => {
+          Genre.create({name: "null"});
+        });
+        it('should return name not found', done => {
+          Genre.findAll()
+          .then(r => expect(r[1].name).to.be.false('NameNotFound'))
+          .catch(() => done())
+        });
       });
     });
   });
-});

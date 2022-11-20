@@ -113,7 +113,6 @@ export default function rootReducer(state = initialState, action) {
       };
 
     case "SORT_BY_RATING":
-      
       if (action.payload === "Rating Mayor") {
         state.videogames.sort((a, b) => {
           if (a.rating > b.rating) return -1;
